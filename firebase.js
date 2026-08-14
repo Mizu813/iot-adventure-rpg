@@ -31,13 +31,17 @@ async function saveGameResult(result) {
   return resultReference.key;
 }
 
-async function getLeaderboard(limit = 10) {
+async function getLeaderboard(limit = null) {
   const resultsReference = firebaseDatabase.ref("results");
   
-  const snapshot = await resultsReference
-    .orderByChild("score")
-    .limitToLast(limit)
-    .once("value");
+  let query = resultsReference.orderByChild("score");
+  
+  // Jika limit tidak ditentukan (null), ambil semua data
+  if (limit !== null) {
+    query = query.limitToLast(limit);
+  }
+  
+  const snapshot = await query.once("value");
 
   const leaderboardData = [];
   snapshot.forEach((childSnapshot) => {

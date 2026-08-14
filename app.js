@@ -961,7 +961,7 @@ async function showLeaderboard() {
   gameElements.leaderboardEmpty.hidden = true;
   
   try {
-    const leaderboardData = await getLeaderboard(10);
+    const leaderboardData = await getLeaderboard();
     
     gameElements.leaderboardLoading.hidden = true;
     
