@@ -241,6 +241,47 @@
           </footer>
         </section>
       </section>
+
+      <section id="leaderboard-screen" class="leaderboard-screen" aria-labelledby="leaderboard-title" hidden>
+        <section class="leaderboard-shell">
+          <header class="system-bar">
+            <p class="system-name"><span class="status-light" aria-hidden="true"></span>NEXUS CITY</p>
+            <p>RANKING GLOBAL</p>
+          </header>
+
+          <section class="leaderboard-header">
+            <p class="eyebrow">LEADERBOARD</p>
+            <h2 id="leaderboard-title">TOP 10 TEKNISI</h2>
+            <p id="leaderboard-subtitle" class="leaderboard-subtitle">NEXUS CITY SIGNAL RESTORATION</p>
+          </section>
+
+          <section id="leaderboard-content" class="leaderboard-content" aria-live="polite">
+            <div class="leaderboard-table">
+              <div class="leaderboard-row leaderboard-row-header">
+                <span class="leaderboard-rank">RANK</span>
+                <span class="leaderboard-name">NAME</span>
+                <span class="leaderboard-score">SCORE</span>
+                <span class="leaderboard-time">TIME</span>
+              </div>
+              <div id="leaderboard-entries" class="leaderboard-entries"></div>
+            </div>
+            <div id="leaderboard-loading" class="leaderboard-loading">
+              <p>MENGHUBUNGKAN KE NEXUS DATABASE...</p>
+            </div>
+            <div id="leaderboard-empty" class="leaderboard-empty" hidden>
+              <p>BELUM ADA DATA TEKNISI.</p>
+              <p>JADILAH YANG PERTAMA!</p>
+            </div>
+          </section>
+
+          <button id="leaderboard-back-button" class="primary-button" type="button">KEMBALI</button>
+
+          <footer class="menu-footer">
+            <span>BUILD 0.8</span>
+            <span>STEP 8</span>
+          </footer>
+        </section>
+      </section>
     </main>
   </body>
 </html>

@@ -767,3 +767,94 @@ input:focus-visible {
   width: auto;
   min-width: 8rem;
 }
+.leaderboard-screen {
+  display: grid;
+  place-items: stretch center;
+}
+
+.leaderboard-shell {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto auto;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  max-width: 24rem;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.leaderboard-header {
+  text-align: center;
+}
+
+.leaderboard-subtitle {
+  font-size: 0.75rem;
+  color: #bfe85e;
+  margin-top: 0.25rem;
+}
+
+.leaderboard-content {
+  display: grid;
+  gap: 1rem;
+}
+
+.leaderboard-table {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.leaderboard-row {
+  display: grid;
+  grid-template-columns: 3rem 1fr 4rem 3.5rem;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background-color: rgba(191, 232, 94, 0.05);
+  border: 1px solid rgba(191, 232, 94, 0.2);
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.leaderboard-row-header {
+  font-size: 0.75rem;
+  color: #bfe85e;
+  background-color: transparent;
+  border: none;
+  padding: 0.25rem 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.leaderboard-rank {
+  font-weight: bold;
+  color: #bfe85e;
+}
+
+.leaderboard-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.leaderboard-score {
+  text-align: right;
+  font-weight: bold;
+  color: #f8fbf8;
+}
+
+.leaderboard-time {
+  text-align: right;
+  font-size: 0.75rem;
+  color: #a0b0a0;
+}
+
+.leaderboard-loading,
+.leaderboard-empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.875rem;
+  color: #a0b0a0;
+}
+
+.leaderboard-empty p {
+  margin: 0.5rem 0;
+}

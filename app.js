@@ -82,12 +82,6 @@ function updateStartButton() {
   gameElements.startButton.disabled = playerName.length < MINIMUM_PLAYER_NAME_LENGTH;
 }
 
-function showScreen(screenName) {
-  gameElements.menuScreen.hidden = screenName !== "menu";
-  gameElements.storyScreen.hidden = screenName !== "story";
-  gameElements.quizScreen.hidden = screenName !== "quiz";
-}
-
 function getSceneCopy(scene) {
   if (!scene) {
     return "";
@@ -952,6 +946,84 @@ function returnToMenu() {
   gameElements.playerNameInput.focus();
 }
 
+function showScreen(screenName) {
+  gameElements.menuScreen.hidden = screenName !== "menu";
+  gameElements.storyScreen.hidden = screenName !== "story";
+  gameElements.quizScreen.hidden = screenName !== "quiz";
+  gameElements.leaderboardScreen.hidden = screenName !== "leaderboard";
+}
+
+async function showLeaderboard() {
+  showScreen("leaderboard");
+  
+  gameElements.leaderboardLoading.hidden = false;
+  gameElements.leaderboardEntries.hidden = true;
+  gameElements.leaderboardEmpty.hidden = true;
+  
+  try {
+    const leaderboardData = await getLeaderboard(10);
+    
+    gameElements.leaderboardLoading.hidden = true;
+    
+    if (leaderboardData.length === 0) {
+      gameElements.leaderboardEmpty.hidden = false;
+      return;
+    }
+    
+    gameElements.leaderboardEntries.replaceChildren();
+    
+    leaderboardData.forEach((entry, index) => {
+      const rowElement = document.createElement("div");
+      rowElement.className = "leaderboard-row";
+      
+      const rankElement = document.createElement("span");
+      rankElement.className = "leaderboard-rank";
+      rankElement.textContent = `#${index + 1}`;
+      
+      const nameElement = document.createElement("span");
+      nameElement.className = "leaderboard-name";
+      nameElement.textContent = entry.name;
+      
+      const scoreElement = document.createElement("span");
+      scoreElement.className = "leaderboard-score";
+      scoreElement.textContent = entry.score.toLocaleString("id-ID");
+      
+      const timeElement = document.createElement("span");
+      timeElement.className = "leaderboard-time";
+      timeElement.textContent = formatTime(entry.totalTime);
+      
+      rowElement.append(rankElement, nameElement, scoreElement, timeElement);
+      gameElements.leaderboardEntries.append(rowElement);
+    });
+    
+    gameElements.leaderboardEntries.hidden = false;
+  } catch (error) {
+    console.error("GAGAL MEMUAT LEADERBOARD:", error);
+    gameElements.leaderboardLoading.hidden = true;
+    gameElements.leaderboardEmpty.hidden = false;
+  }
+}
+
+function formatTime(seconds) {
+  if (typeof seconds !== "number" || seconds < 0) {
+    return "-";
+  }
+  
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  
+  if (mins > 0) {
+    return `${mins}m ${secs}s`;
+  }
+  
+  return `${secs}s`;
+}
+
+function returnToMenuFromLeaderboard() {
+  showScreen("menu");
+  gameElements.playerNameInput.focus();
+}
+
 function initializeGame() {
   gameElements = {
     menuScreen: document.querySelector("#menu-screen"),
@@ -1023,6 +1095,12 @@ function initializeGame() {
     resultPanel: document.querySelector("#result-panel"),
     resultSummary: document.querySelector("#result-summary"),
     returnMenuButton: document.querySelector("#return-menu-button"),
+    leaderboardScreen: document.querySelector("#leaderboard-screen"),
+    leaderboardContent: document.querySelector("#leaderboard-content"),
+    leaderboardEntries: document.querySelector("#leaderboard-entries"),
+    leaderboardLoading: document.querySelector("#leaderboard-loading"),
+    leaderboardEmpty: document.querySelector("#leaderboard-empty"),
+    leaderboardBackButton: document.querySelector("#leaderboard-back-button"),
   };
 
   if (Object.values(gameElements).some((element) => !element)) {
@@ -1049,9 +1127,8 @@ function initializeGame() {
     startCampaign();
   });
 
-  gameElements.leaderboardButton.addEventListener("click", () => {
-    setFormMessage("DATA LINK BELUM TERHUBUNG.");
-  });
+  gameElements.leaderboardButton.addEventListener("click", showLeaderboard);
+  gameElements.leaderboardBackButton.addEventListener("click", returnToMenuFromLeaderboard);
 
   gameElements.storySceneButton.addEventListener("click", handleStorySceneContinue);
   gameElements.storyExplorationButton.addEventListener("click", handleStoryExplorationContinue);
