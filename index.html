@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="IoT: SIGNAL ZERO - petualangan edukasi di NEXUS CITY."
+    />
+    <title>IoT: SIGNAL ZERO</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="data/questions.js" defer></script>
+    <script src="data/characters.js" defer></script>
+    <script src="data/dialogues.js" defer></script>
+    <script src="data/quests.js" defer></script>
+    <script src="data/scenes.js" defer></script>
+
+    <script src="quiz-engine.js" defer></script>
+    <script src="story-engine.js" defer></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js" defer></script>
+
+    <script src="firebase.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="game-app">
+      <section id="menu-screen" class="game-menu" aria-labelledby="game-title">
+      <section class="menu-shell">
+        <header class="system-bar">
+          <p class="system-name"><span class="status-light" aria-hidden="true"></span>NEXUS CITY</p>
+          <p>UPLINK 01</p>
+        </header>
+
+        <div class="signal-mark" aria-hidden="true">
+          <span class="signal-frame signal-frame-outer"></span>
+          <span class="signal-frame signal-frame-inner"></span>
+          <span class="signal-core"></span>
+        </div>
+
+        <div class="title-block">
+          <p class="eyebrow">ADVENTURE PROTOCOL</p>
+          <h1 id="game-title">IoT:<span>SIGNAL ZERO</span></h1>
+          <p class="subtitle">NEXUS CITY // SYSTEM RESTORE</p>
+        </div>
+
+        <form id="player-form" class="player-form" novalidate>
+          <label for="player-name">CALLSIGN TEKNISI</label>
+          <div class="name-field">
+            <span class="field-marker" aria-hidden="true">&gt;</span>
+            <input
+              id="player-name"
+              name="playerName"
+              type="text"
+              maxlength="16"
+              autocomplete="name"
+              placeholder="NAMA KAMU"
+              required
+            />
+          </div>
+          <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+
+          <button id="start-button" class="primary-button" type="submit" disabled>
+            <span>START GAME</span>
+            <span class="button-arrow" aria-hidden="true"></span>
+          </button>
+          <button id="leaderboard-button" class="secondary-button" type="button">
+            <span class="button-index" aria-hidden="true">01</span>
+            <span>LEADERBOARD</span>
+          </button>
+        </form>
+
+        <footer class="menu-footer">
+          <span>BUILD 0.8</span>
+          <span>STEP 8</span>
+        </footer>
+      </section>
+      </section>
+
+      <section id="story-screen" class="story-screen" aria-labelledby="story-scene-name" hidden>
+        <section class="story-shell">
+          <header class="system-bar">
+            <p class="system-name"><span class="status-light" aria-hidden="true"></span>NEXUS CITY</p>
+            <p id="story-score" class="quiz-score">SCORE 0</p>
+          </header>
+
+          <section id="story-scene-panel" class="story-panel" aria-live="polite">
+            <p id="story-scene-label" class="eyebrow">PROLOG</p>
+            <h2 id="story-scene-name" class="story-heading">CENTRAL PLAZA</h2>
+            <p id="story-scene-copy" class="story-copy"></p>
+            <button id="story-scene-button" class="primary-button story-action-button" type="button">LANJUT</button>
+          </section>
+
+          <section id="story-exploration-panel" class="story-panel story-exploration-panel" aria-live="polite" hidden>
+            <p class="eyebrow">EXPLORATION</p>
+            <div class="story-exploration-meta">
+              <div>
+                <p class="hud-label">ZONA SAAT INI</p>
+                <p id="story-exploration-zone" class="story-zone-name">CENTRAL PLAZA</p>
+              </div>
+              <div>
+                <p class="hud-label">TARGET</p>
+                <p id="story-exploration-target" class="story-zone-name">SMART HOME DISTRICT</p>
+              </div>
+            </div>
+            <div
+              id="story-world-map"
+              class="story-world-map"
+              tabindex="0"
+              role="application"
+              aria-label="Peta eksplorasi NEXUS CITY"
+            >
+              <div id="story-world-zones" class="story-world-zones" aria-hidden="true"></div>
+              <div id="story-world-interaction" class="story-world-interaction" aria-hidden="true"></div>
+              <div id="story-world-player" class="story-world-player" aria-hidden="true"></div>
+            </div>
+            <p id="story-exploration-hint" class="story-copy"></p>
+            <div class="story-controls">
+              <div id="movement-joystick" class="movement-joystick" aria-label="Kontrol gerak">
+                <div id="movement-joystick-thumb" class="movement-joystick-thumb"></div>
+              </div>
+
+              <button
+                id="story-exploration-button"
+                class="primary-button story-action-button"
+                type="button"
+                disabled
+              >
+                INTERAKSI
+              </button>
+            </div>
+          </section>
+
+          <section id="story-interaction-panel" class="story-panel" aria-live="polite" hidden>
+            <p class="eyebrow">INTERAKSI</p>
+            <article class="story-npc-card">
+              <span id="story-interaction-accent" class="story-npc-badge" aria-hidden="true"></span>
+              <p id="story-interaction-role" class="story-npc-role"></p>
+              <h2 id="story-interaction-name" class="story-heading"></h2>
+              <p id="story-interaction-copy" class="story-copy"></p>
+            </article>
+            <button id="story-interaction-button" class="primary-button story-action-button" type="button">BICARA</button>
+          </section>
+
+          <section id="story-dialogue-panel" class="story-panel" aria-live="polite" hidden>
+            <p id="story-dialogue-speaker-role" class="story-npc-role"></p>
+            <h2 id="story-dialogue-speaker-name" class="story-heading"></h2>
+            <p id="story-dialogue-text" class="story-dialogue-text"></p>
+            <button id="story-dialogue-button" class="primary-button story-action-button" type="button">LANJUT</button>
+          </section>
+
+          <section id="story-quest-panel" class="story-panel" aria-live="polite" hidden>
+            <p class="eyebrow">MISI AKTIF</p>
+            <h2 id="story-quest-title" class="story-heading"></h2>
+            <p id="story-quest-briefing" class="story-copy"></p>
+            <p id="story-quest-objective" class="story-quest-objective"></p>
+            <button id="story-quest-button" class="primary-button story-action-button" type="button">MULAI QUIZ</button>
+          </section>
+
+          <section id="story-reward-panel" class="story-panel" aria-live="polite" hidden>
+            <p class="eyebrow">HADIAH MISI</p>
+            <h2 id="story-reward-title" class="story-heading"></h2>
+            <p id="story-reward-summary" class="story-copy"></p>
+            <button id="story-reward-button" class="primary-button story-action-button" type="button">LANJUT</button>
+          </section>
+
+          <section id="story-ending-panel" class="story-panel" aria-live="polite" hidden>
+            <p class="eyebrow">SIGNAL ZERO</p>
+            <h2 class="story-heading">NEXUS CITY TERHUBUNG</h2>
+            <p id="story-ending-summary" class="story-copy"></p>
+            <p id="story-ending-badges" class="story-ending-badges"></p>
+            <button id="story-ending-button" class="primary-button story-action-button" type="button">KEMBALI KE MENU</button>
+          </section>
+
+          <footer class="menu-footer">
+            <span>BUILD 0.8</span>
+            <span>STEP 8</span>
+          </footer>
+        </section>
+      </section>
+
+      <section id="quiz-screen" class="quiz-screen" aria-labelledby="quiz-title" hidden>
+        <section class="quiz-shell">
+          <header class="system-bar">
+            <p class="system-name"><span class="status-light" aria-hidden="true"></span>NEXUS CITY</p>
+            <p id="quiz-score" class="quiz-score">SCORE 0</p>
+          </header>
+
+          <section class="quiz-hud" aria-label="Status permainan">
+            <div class="hud-mission">
+              <p class="hud-label">MISI AKTIF</p>
+              <p id="quiz-mission" class="hud-mission-title">-</p>
+            </div>
+
+            <div class="hud-stats">
+              <div id="quiz-hp-stat" class="hud-stat hud-hp-stat">
+                <p class="hud-label">HP</p>
+                <div id="quiz-hp-pips" class="hp-pips" aria-hidden="true"></div>
+                <p id="quiz-hp" class="hud-value">7/7</p>
+              </div>
+
+              <div class="hud-stat">
+                <p class="hud-label">PROGRESS</p>
+                <p id="quiz-progress" class="hud-value">0/10</p>
+              </div>
+
+              <div id="quiz-timer-wrap" class="hud-stat hud-timer-stat">
+                <p class="hud-label">WAKTU</p>
+                <p id="quiz-timer" class="hud-value" role="timer" aria-label="Sisa waktu 45 detik">45</p>
+              </div>
+            </div>
+          </section>
+
+          <section id="quiz-card" class="quiz-card" aria-live="polite">
+            <p id="quiz-context" class="quiz-context"></p>
+            <p id="quiz-title" class="quiz-title"></p>
+            <h2 id="question-prompt" class="question-prompt"></h2>
+
+            <div id="choice-list" class="choice-list" aria-label="Pilihan jawaban"></div>
+
+            <section id="feedback-panel" class="feedback-panel" role="status" aria-live="polite" hidden>
+              <p id="feedback-status" class="feedback-status"></p>
+              <p id="feedback-explanation" class="feedback-explanation"></p>
+            </section>
+
+            <button id="next-button" class="primary-button quiz-next-button" type="button" hidden></button>
+          </section>
+
+          <section id="result-panel" class="result-panel" aria-live="polite" hidden>
+            <p class="eyebrow">QUIZ REPORT</p>
+            <h2>CORE QUIZ COMPLETE</h2>
+            <p id="result-summary" class="result-summary"></p>
+            <button id="return-menu-button" class="primary-button" type="button">KEMBALI KE MENU</button>
+          </section>
+
+          <footer class="menu-footer">
+            <span>BUILD 0.8</span>
+            <span>STEP 8</span>
+          </footer>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
