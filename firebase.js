@@ -30,3 +30,36 @@ async function saveGameResult(result) {
 
   return resultReference.key;
 }
+
+async function getLeaderboard(limit = 10) {
+  const resultsReference = firebaseDatabase.ref("results");
+  
+  const snapshot = await resultsReference
+    .orderByChild("score")
+    .limitToLast(limit)
+    .once("value");
+
+  const leaderboardData = [];
+  snapshot.forEach((childSnapshot) => {
+    const data = childSnapshot.val();
+    leaderboardData.push({
+      key: childSnapshot.key,
+      name: data.name,
+      score: data.score,
+      totalTime: data.totalTime,
+      timestamp: data.timestamp,
+    });
+  });
+
+  leaderboardData.sort((a, b) => {
+    if (b.score !== a.score) {
+      return b.score - a.score;
+    }
+    if (a.totalTime !== b.totalTime) {
+      return a.totalTime - b.totalTime;
+    }
+    return a.timestamp - b.timestamp;
+  });
+
+  return leaderboardData;
+}
