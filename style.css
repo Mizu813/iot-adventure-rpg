@@ -338,19 +338,21 @@ h1 span {
   margin: 0;
 }
 
-.quiz-context,
-.quiz-title {
+/* Quiz Card Hierarchy - Clear Visual Flow */
+.quiz-context {
   font-size: var(--font-size-xs);
   line-height: 1.5;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.quiz-context {
-  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  color: var(--color-text-dim);
+  font-weight: 700;
 }
 
 .quiz-title {
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--color-accent-amber);
   font-weight: 700;
 }
@@ -359,10 +361,11 @@ h1 span {
   margin: 0;
   color: var(--color-text);
   font-size: var(--font-size-lg);
-  line-height: 1.45;
+  line-height: 1.5;
   font-weight: 600;
 }
 
+/* Choice Buttons - Card Style with Clear Affordance */
 .choice-list {
   display: grid;
   gap: var(--spacing-sm);
@@ -370,64 +373,96 @@ h1 span {
 
 .choice-button {
   display: grid;
-  min-height: 4rem;
-  grid-template-columns: 2.6rem minmax(0, 1fr);
-  gap: 0.8rem;
+  min-height: 4.25rem;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  gap: 0.875rem;
   align-items: center;
-  border: 1px solid var(--color-border-light);
+  border: 2px solid var(--color-border-light);
   border-radius: var(--radius-md);
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-card);
   color: var(--color-text);
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-md);
   text-align: left;
-  transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+  transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
 .choice-label {
   display: grid;
-  width: 2rem;
-  height: 2rem;
+  width: 2.25rem;
+  height: 2.25rem;
   place-items: center;
-  border: 1px solid var(--color-accent-teal);
+  border: 2px solid var(--color-accent-teal);
   border-radius: var(--radius-sm);
+  background-color: rgba(0, 194, 179, 0.1);
   color: var(--color-accent-lime);
   font-weight: 700;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
+  flex-shrink: 0;
 }
 
 .choice-text {
   font-size: var(--font-size-base);
-  line-height: 1.4;
+  line-height: 1.45;
+  font-weight: 500;
 }
 
 .choice-button:not(:disabled):hover,
 .choice-button:not(:disabled):focus-visible {
   border-color: var(--color-accent-lime);
   background-color: #26331f;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
 }
 
 .choice-button.is-correct {
   border-color: var(--color-accent-lime);
   background-color: #2f421e;
+  box-shadow: 0 0 0 2px rgba(191, 232, 94, 0.3);
+}
+
+.choice-button.is-correct .choice-label {
+  border-color: var(--color-accent-lime);
+  background-color: var(--color-accent-lime);
+  color: #17200f;
 }
 
 .choice-button.is-incorrect {
   border-color: var(--color-accent-coral);
   background-color: #47251e;
+  box-shadow: 0 0 0 2px rgba(255, 156, 122, 0.3);
+}
+
+.choice-button.is-incorrect .choice-label {
+  border-color: var(--color-accent-coral);
+  background-color: var(--color-accent-coral);
+  color: #17200f;
 }
 
 .choice-button:disabled {
   cursor: not-allowed;
-  opacity: 1;
+  opacity: 0.85;
 }
 
+/* Feedback Panel - Clear Correct/Incorrect Indicators */
 .feedback-panel {
   display: grid;
-  gap: var(--spacing-xs);
-  border: 1px solid var(--color-border-light);
+  gap: var(--spacing-sm);
+  border: 2px solid var(--color-border-light);
   border-radius: var(--radius-md);
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-card);
   padding: var(--spacing-md);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.feedback-panel.is-correct {
+  border-color: var(--color-accent-lime);
+  background-color: rgba(191, 232, 94, 0.08);
+}
+
+.feedback-panel.is-incorrect {
+  border-color: var(--color-accent-coral);
+  background-color: rgba(255, 156, 122, 0.08);
 }
 
 .feedback-status {
@@ -435,14 +470,42 @@ h1 span {
   font-size: var(--font-size-sm);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.feedback-status::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+.feedback-panel.is-correct .feedback-status {
+  color: var(--color-accent-lime);
+}
+
+.feedback-panel.is-correct .feedback-status::before {
+  background-color: var(--color-accent-lime);
+}
+
+.feedback-panel.is-incorrect .feedback-status {
+  color: var(--color-accent-coral);
+}
+
+.feedback-panel.is-incorrect .feedback-status::before {
+  background-color: var(--color-accent-coral);
 }
 
 .feedback-explanation,
 .result-summary {
   color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-  line-height: 1.55;
+  font-size: var(--font-size-base);
+  line-height: 1.6;
 }
 
 .quiz-next-button {
@@ -452,12 +515,18 @@ h1 span {
 .result-panel {
   margin: auto 0;
   text-align: center;
+  padding: var(--spacing-lg) var(--spacing-md);
 }
 
 .result-panel h2 {
   color: var(--color-accent-lime);
   font-size: var(--font-size-xl);
-  line-height: 1.1;
+  line-height: 1.2;
+  margin: 0 0 var(--spacing-sm);
+}
+
+.result-summary {
+  margin: 0 0 var(--spacing-md);
 }
 
 .player-form {
