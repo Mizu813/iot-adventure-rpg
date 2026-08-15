@@ -2,7 +2,7 @@
 
 ## Current Step
 
-**STEP 8 -- Exploration Minimal**
+**STEP 1 - Typography + UI System**
 
 Status: **SELESAI / LOCKED**
 
@@ -20,6 +20,7 @@ Status: **SELESAI / LOCKED**
 - STEP 6 -- Progress & HUD: SELESAI / LOCKED
 - STEP 7 -- Story, Dialogue & Quest: SELESAI / LOCKED
 - STEP 8 -- Exploration Minimal: SELESAI / LOCKED
+- STEP 1 (Typography + UI System): SELESAI / LOCKED
 
 ## Keputusan Terkunci
 
@@ -33,7 +34,7 @@ Status: **SELESAI / LOCKED**
 - Setiap soal memiliki timer 45 detik. Jawaban salah atau timeout mengurangi HP satu.
 - Score benar memakai base score berdasarkan difficulty, speed bonus `50 x (sisa waktu / 45)`, dan HP bonus `30 x (HP saat ini / 7)` setelah hasil jawaban diproses.
 
-## Hasil STEP 1
+## Hasil STEP 1 (Project Foundation)
 
 - Struktur folder utama, aset, dan data telah dibuat.
 - Halaman placeholder dapat dibuka tanpa proses build.
@@ -91,6 +92,21 @@ Status: **SELESAI / LOCKED**
 - Tombol interaksi aktif hanya ketika pemain berada dalam jangkauan titik sinyal zona aktif.
 - Setiap scene memiliki `mapZone` dengan `spawnPoint` dan `interactionPoint` agar perpindahan zona tetap terkontrol.
 - Engine eksplorasi tidak membuat map terpisah; cukup satu peta utama dengan zona-zona berbatas.
+
+## Hasil STEP 1 (Typography + UI System)
+
+- Sistem typography scale dengan 8 tingkat ukuran font (--font-size-xs hingga --font-size-3xl) untuk keterbacaan mobile optimal.
+- Sistem spacing scale dengan 6 tingkat (--spacing-xs hingga --spacing-2xl) untuk konsistensi padding dan gap.
+- Sistem border radius dengan 4 tingkat (--radius-sm, --radius-md, --radius-lg, --radius-full) untuk UI yang lebih modern.
+- Sistem warna terpusat dengan CSS custom properties (--color-bg, --color-text, --color-accent-*) untuk konsistensi tema.
+- Font size body ditingkatkan dari 14px ke 15px (--font-size-base: 0.9375rem) untuk keterbacaan mobile.
+- Border radius diterapkan pada button, input, card, panel, dan komponen UI lainnya.
+- Text-transform uppercase dan letter-spacing ditambahkan pada label, eyebrow, dan elemen kecil untuk hierarki visual.
+- Font-weight 600 ditambahkan pada question-prompt untuk emphasis.
+- Padding dan gap distandarisasi menggunakan spacing scale di seluruh komponen.
+- Antialiasing font diaktifkan untuk rendering text yang lebih halus di mobile.
+- Tidak ada perubahan pada gameplay, scoring, HP, timer, Firebase, story, atau struktur data.
+- Semua fitur existing tetap berfungsi; game tetap runnable.
 
 ## Batasan STEP Berikutnya
 
