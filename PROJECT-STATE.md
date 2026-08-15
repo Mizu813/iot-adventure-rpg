@@ -2,7 +2,7 @@
 
 ## Current Step
 
-**STEP 1 - Typography + UI System**
+**STEP 2 - Exploration HUD/Layout**
 
 Status: **SELESAI / LOCKED**
 
@@ -21,6 +21,7 @@ Status: **SELESAI / LOCKED**
 - STEP 7 -- Story, Dialogue & Quest: SELESAI / LOCKED
 - STEP 8 -- Exploration Minimal: SELESAI / LOCKED
 - STEP 1 (Typography + UI System): SELESAI / LOCKED
+- STEP 2 (Exploration HUD/Layout): SELESAI / LOCKED
 
 ## Keputusan Terkunci
 
@@ -106,6 +107,21 @@ Status: **SELESAI / LOCKED**
 - Padding dan gap distandarisasi menggunakan spacing scale di seluruh komponen.
 - Antialiasing font diaktifkan untuk rendering text yang lebih halus di mobile.
 - Tidak ada perubahan pada gameplay, scoring, HP, timer, Firebase, story, atau struktur data.
+- Semua fitur existing tetap berfungsi; game tetap runnable.
+
+## Hasil STEP 2 (Exploration HUD/Layout)
+
+- HUD quiz dibuat lebih compact dengan grid layout 2 baris: misi aktif di atas, stats (HP, progress, timer) di bawah.
+- Grid stats menggunakan 3 kolom equal width (repeat(3, 1fr)) untuk distribusi ruang yang efisien.
+- Font size label dan value HUD diperkecil ke var(--font-size-xs) untuk menghemat ruang vertikal.
+- HP pips diperkecil dari 0.72rem ke 0.55rem dengan gap 0.15rem untuk footprint lebih kecil.
+- Story panel padding dikurangi dari var(--spacing-xl) var(--spacing-lg) ke var(--spacing-lg) var(--spacing-md).
+- Story exploration panel mendapat padding khusus (top/bottom var(--spacing-md)) untuk ruang map lebih luas.
+- World map min-height dikurangi dari 25rem ke 20rem untuk memberi ruang lebih pada area bermain.
+- Movement joystick diperkecil dari 4.25rem ke 3.75rem, thumb dari 1.75rem ke 1.5rem.
+- Story controls alignment diubah dari flex-end ke center untuk konsistensi visual.
+- Interaksi button di exploration panel menggunakan flex: 1 dengan height 3rem untuk proporsi lebih baik.
+- Tidak ada perubahan pada movement, collision, quest, scoring, HP logic, timer, quiz, Firebase, story, atau data.
 - Semua fitur existing tetap berfungsi; game tetap runnable.
 
 ## Batasan STEP Berikutnya
