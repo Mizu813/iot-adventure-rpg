@@ -125,23 +125,51 @@ Status: **SELESAI / LOCKED**
 - Tidak ada perubahan pada movement, collision, quest, scoring, HP logic, timer, quiz, Firebase, story, atau data.
 - Semua fitur existing tetap berfungsi; game tetap runnable.
 
-## Hasil STEP 3 (Quiz UI)
+## Hasil STEP 3 (Quiz UI Rework)
 
-- Tampilan quiz dibuat lebih modern dan bersih dengan hierarchy visual yang jelas: konteks → judul → pertanyaan → pilihan.
-- Quiz context menggunakan font-size-xs, color-text-dim, letter-spacing 0.06em untuk subtle context indicator.
-- Quiz title menggunakan font-size-sm, color-accent-amber, letter-spacing 0.04em untuk emphasis sedang.
-- Question prompt tetap menggunakan font-size-lg dengan font-weight 600 untuk readability optimal.
-- Pilihan jawaban dibuat seperti card/button dengan border 2px, background color-bg-card, box-shadow, dan min-height 4.25rem.
-- Choice label diperbesar ke 2.25rem dengan background rgba teal, border 2px, dan flex-shrink 0 untuk konsistensi.
-- Choice text menggunakan font-weight 500 untuk keterbacaan lebih baik.
-- Hover state pada choice button menambahkan translateY(-1px) dan box-shadow untuk feedback tactile.
-- Feedback benar/salah diperjelas dengan: border color, background tint, box-shadow ring, dan choice-label fill.
-- Feedback panel mendapat is-correct/is-incorrect class dengan border color, background tint, dan status indicator dot.
-- Feedback status menggunakan pseudo-element (::before) dengan dot indicator berwarna sesuai hasil.
-- Feedback explanation font-size ditingkatkan ke font-size-base untuk keterbacaan mobile.
-- Result panel mendapat padding consistent dan margin pada heading/summary.
+- **EXPLORATION HUD REDESIGN**: Compact modern HUD dengan panel styling yang jelas.
+  - Mission panel dengan background tint, border, dan border-radius konsisten.
+  - Stats grid dengan 3 kolom equal width, masing-masing dalam card terpisah dengan background semi-transparan dan border.
+  - HP pips lebih besar (0.625rem) dengan gradient fill dan glow effect saat full.
+  - HP pips berubah ke coral gradient dengan pulse animation saat HP rendah.
+  - Timer dengan font monospace dan pulse animation saat urgent (<10 detik).
+  - HUD background dengan gradient vertical dan box-shadow untuk depth.
+  - Label dengan letter-spacing lebih lebar (0.08em) untuk keterbacaan.
+
+- **STORY/EXPLORATION PANEL REDESIGN**:
+  - World map min-height dikurangi dari 20rem ke 18rem untuk area bermain lebih luas.
+  - Map border diperkuat (2px) dengan inner shadow untuk depth.
+  - Player sprite diperkecil dari 4.25rem ke 3.5rem dengan drop-shadow.
+  - Movement joystick diperkecil dari 3.75rem ke 3.25rem dengan radial gradient background.
+  - Joystick thumb diperkecil dari 1.5rem ke 1.25rem dengan gradient fill dan glow.
+  - Controls padding ditambahkan untuk spacing lebih baik.
+
+- **QUIZ CARD REDESIGN**: Komposisi visual baru dengan hierarchy yang jelas.
+  - Quiz card dengan gradient background, border tebal (2px), border-radius besar, dan shadow depth.
+  - Progress bar di atas card dengan gradient lime-teal sebagai visual indicator.
+  - Context dengan border-bottom dashed untuk separator subtle.
+  - Question prompt dengan font-weight 700 dan text-shadow untuk emphasis.
+  - Choice buttons dengan gradient background, left accent bar (4px), dan shadow layer.
+  - Choice label lebih besar (2.5rem) dengan gradient background dan text-shadow.
+  - Hover state: translateY(-2px), shadow meningkat, label scale(1.05), accent bar visible.
+  - Selected state: teal glow ring dan label solid teal.
+  - Correct state: lime gradient background, glow ring, label solid lime dengan box-shadow.
+  - Incorrect state: coral gradient background, glow ring, label solid coral dengan box-shadow.
+  - Disabled state: opacity 0.6 tanpa transform.
+
+- **FEEDBACK PANEL REDESIGN**: Status indicator yang lebih jelas.
+  - Top accent bar (4px) dengan gradient sesuai status (lime-teal untuk correct, coral-amber untuk incorrect).
+  - Background dengan gradient tint sesuai status.
+  - Status dot lebih besar (0.75rem) dengan glow effect.
+  - Font-weight 800 untuk status text dengan letter-spacing 0.08em.
+
+- **RESULT PANEL REDESIGN**:
+  - Gradient background, border tebal, border-radius besar, dan shadow depth.
+  - Heading dengan text-shadow untuk emphasis.
+  - Summary dengan line-height 1.7 untuk keterbacaan.
+
 - Tidak ada perubahan pada logic quiz, HP, timer 45 detik, scoring, urutan soal, atau data soal.
-- Tidak ada perubahan pada Firebase, story, exploration, atau fitur lain.
+- Tidak ada perubahan pada Firebase, story, exploration movement/collision, atau fitur lain.
 - Semua fitur existing tetap berfungsi; game tetap runnable.
 
 ## Batasan STEP Berikutnya
