@@ -351,31 +351,24 @@ h1 span {
    QUIZ CARD - MODERN REDESIGN
    ============================================ */
 
-.quiz-card,
-.result-panel {
+/* ============================================
+   QUIZ CARD - CONTEXT STORY PANEL REDESIGN
+   Priority: Readability on mobile portrait
+   ============================================ */
+
+.quiz-card {
   display: grid;
   gap: var(--spacing-md);
   padding: var(--spacing-lg) var(--spacing-md);
   margin: auto 0;
-}
-
-.quiz-card {
   background: linear-gradient(180deg, var(--color-bg-card) 0%, var(--color-bg-panel) 100%);
   border: 2px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
 }
 
-.quiz-context,
-.quiz-title,
-.feedback-status,
-.feedback-explanation,
-.result-summary,
-.result-panel h2 {
-  margin: 0;
-}
-
-/* Quiz Card Header - Progress + Timer Bar */
+/* Progress bar top indicator */
 .quiz-card::before {
   content: "";
   position: absolute;
@@ -387,18 +380,27 @@ h1 span {
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
-/* Context & Title - Subtle hierarchy */
+/* ============================================
+   KONTEKS CERITA - Panel Terpisah
+   Font: 16-18px minimum, line-height 1.5
+   ============================================ */
+
 .quiz-context {
-  font-size: 0.6875rem;
-  line-height: 1.5;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-text-dim);
-  font-weight: 700;
-  padding-bottom: var(--spacing-xs);
-  border-bottom: 1px dashed var(--color-border);
+  margin: 0;
+  font-size: 1rem; /* 16px - minimum untuk mobile */
+  line-height: 1.6;
+  color: var(--color-text);
+  font-weight: 400;
+  padding: var(--spacing-md);
+  background: rgba(48, 65, 51, 0.25);
+  border: 1px solid rgba(97, 114, 99, 0.4);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-accent-teal);
+  text-transform: none;
+  letter-spacing: normal;
 }
 
+/* Quiz title - scene/question identifier */
 .quiz-title {
   font-size: 0.75rem;
   line-height: 1.4;
@@ -406,19 +408,36 @@ h1 span {
   letter-spacing: 0.06em;
   color: var(--color-accent-amber);
   font-weight: 700;
+  margin: 0;
 }
 
-/* Question Prompt - Dominant element */
+/* ============================================
+   PERTANYAAN - Elemen Paling Dominan
+   Font: 22-26px
+   ============================================ */
+
 .question-prompt {
   margin: 0;
   color: var(--color-text);
-  font-size: var(--font-size-lg);
-  line-height: 1.5;
+  font-size: 1.5rem; /* 24px - sweet spot untuk mobile */
+  line-height: 1.4;
   font-weight: 700;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  padding: var(--spacing-sm) 0;
 }
 
-/* Choice Buttons - Large Cards with Clear Visual Hierarchy */
+.feedback-status,
+.feedback-explanation,
+.result-summary,
+.result-panel h2 {
+  margin: 0;
+}
+
+/* ============================================
+   PILIHAN JAWABAN - 4 Cards Besar
+   Touch-friendly untuk mobile portrait
+   ============================================ */
+
 .choice-list {
   display: grid;
   gap: var(--spacing-sm);
@@ -427,15 +446,15 @@ h1 span {
 
 .choice-button {
   display: grid;
-  min-height: 4rem;
-  grid-template-columns: 2.5rem minmax(0, 1fr);
-  gap: var(--spacing-sm);
+  min-height: 4.5rem; /* Lebih tinggi untuk touch area */
+  grid-template-columns: 3rem minmax(0, 1fr); /* Label lebih besar */
+  gap: var(--spacing-md);
   align-items: center;
   border: 2px solid var(--color-border-light);
   border-radius: var(--radius-md);
   background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(23, 32, 25, 0.8) 100%);
   color: var(--color-text);
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-md);
   text-align: left;
   transition: all 160ms ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -457,15 +476,15 @@ h1 span {
 
 .choice-label {
   display: grid;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 3rem; /* Lebih besar dari 2.5rem */
+  height: 3rem;
   place-items: center;
   border: 2px solid var(--color-accent-teal);
   border-radius: var(--radius-sm);
   background: linear-gradient(135deg, rgba(0, 194, 179, 0.15) 0%, rgba(0, 194, 179, 0.05) 100%);
   color: var(--color-accent-teal);
   font-weight: 800;
-  font-size: var(--font-size-md);
+  font-size: 1.125rem; /* 18px - lebih besar */
   flex-shrink: 0;
   transition: all 160ms ease;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -557,6 +576,10 @@ h1 span {
 }
 
 /* Feedback Panel - Clear Status Indicator */
+/* ============================================
+   FEEDBACK PANEL - Status Indicator Jelas
+   ============================================ */
+
 .feedback-panel {
   display: grid;
   gap: var(--spacing-sm);
@@ -598,7 +621,7 @@ h1 span {
 
 .feedback-status {
   color: var(--color-accent-amber);
-  font-size: var(--font-size-sm);
+  font-size: 0.875rem; /* 14px - lebih mudah dibaca */
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -609,8 +632,8 @@ h1 span {
 
 .feedback-status::before {
   content: "";
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 0.875rem; /* Lebih besar dari 0.75rem */
+  height: 0.875rem;
   border-radius: var(--radius-full);
   background-color: currentColor;
   flex-shrink: 0;
@@ -635,11 +658,17 @@ h1 span {
   box-shadow: 0 0 10px rgba(255, 156, 122, 0.8);
 }
 
-.feedback-explanation,
+.feedback-explanation {
+  color: var(--color-text-muted);
+  font-size: 1rem; /* 16px - lebih mudah dibaca */
+  line-height: 1.7;
+}
+
 .result-summary {
   color: var(--color-text-muted);
-  font-size: var(--font-size-base);
+  font-size: 1rem; /* 16px - lebih mudah dibaca */
   line-height: 1.7;
+  margin: 0 0 var(--spacing-lg);
 }
 
 .quiz-next-button {
@@ -663,13 +692,6 @@ h1 span {
   line-height: 1.2;
   margin: 0 0 var(--spacing-md);
   text-shadow: 0 2px 4px rgba(191, 232, 94, 0.3);
-}
-
-.result-summary {
-  margin: 0 0 var(--spacing-lg);
-  color: var(--color-text-muted);
-  font-size: var(--font-size-base);
-  line-height: 1.7;
 }
 
 .player-form {
