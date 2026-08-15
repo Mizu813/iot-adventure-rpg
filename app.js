@@ -669,6 +669,7 @@ function stopQuestionTimer() {
 
 function clearQuizFeedback() {
   gameElements.feedbackPanel.hidden = true;
+  gameElements.feedbackPanel.classList.remove("is-correct", "is-incorrect");
   gameElements.feedbackStatus.textContent = EMPTY_MESSAGE;
   gameElements.feedbackExplanation.textContent = EMPTY_MESSAGE;
   gameElements.nextButton.hidden = true;
@@ -746,14 +747,19 @@ function renderAnswerFeedback(answerResult) {
     }
   });
 
+  // Update feedback panel styling based on result
   gameElements.feedbackPanel.hidden = false;
+  gameElements.feedbackPanel.classList.remove("is-correct", "is-incorrect");
 
   if (answerResult.isTimeout) {
     gameElements.feedbackStatus.textContent = `WAKTU HABIS. HP ${answerResult.hpAfterAnswer}/${QUIZ_ENGINE.MAX_HP}. +0 SCORE.`;
+    gameElements.feedbackPanel.classList.add("is-incorrect");
   } else if (answerResult.isCorrect) {
     gameElements.feedbackStatus.textContent = `BENAR. +${answerResult.earnedScore} SCORE (WAKTU +${answerResult.speedBonus}, HP +${answerResult.hpBonus}).`;
+    gameElements.feedbackPanel.classList.add("is-correct");
   } else {
     gameElements.feedbackStatus.textContent = `BELUM TEPAT. HP ${answerResult.hpAfterAnswer}/${QUIZ_ENGINE.MAX_HP}. +0 SCORE.`;
+    gameElements.feedbackPanel.classList.add("is-incorrect");
   }
 
   gameElements.feedbackExplanation.textContent = answerResult.explanation;

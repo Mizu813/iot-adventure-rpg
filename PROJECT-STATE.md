@@ -2,7 +2,7 @@
 
 ## Current Step
 
-**STEP 2 - Exploration HUD/Layout**
+**STEP 3 - Quiz UI**
 
 Status: **SELESAI / LOCKED**
 
@@ -22,6 +22,7 @@ Status: **SELESAI / LOCKED**
 - STEP 8 -- Exploration Minimal: SELESAI / LOCKED
 - STEP 1 (Typography + UI System): SELESAI / LOCKED
 - STEP 2 (Exploration HUD/Layout): SELESAI / LOCKED
+- STEP 3 (Quiz UI): SELESAI / LOCKED
 
 ## Keputusan Terkunci
 
@@ -122,6 +123,25 @@ Status: **SELESAI / LOCKED**
 - Story controls alignment diubah dari flex-end ke center untuk konsistensi visual.
 - Interaksi button di exploration panel menggunakan flex: 1 dengan height 3rem untuk proporsi lebih baik.
 - Tidak ada perubahan pada movement, collision, quest, scoring, HP logic, timer, quiz, Firebase, story, atau data.
+- Semua fitur existing tetap berfungsi; game tetap runnable.
+
+## Hasil STEP 3 (Quiz UI)
+
+- Tampilan quiz dibuat lebih modern dan bersih dengan hierarchy visual yang jelas: konteks → judul → pertanyaan → pilihan.
+- Quiz context menggunakan font-size-xs, color-text-dim, letter-spacing 0.06em untuk subtle context indicator.
+- Quiz title menggunakan font-size-sm, color-accent-amber, letter-spacing 0.04em untuk emphasis sedang.
+- Question prompt tetap menggunakan font-size-lg dengan font-weight 600 untuk readability optimal.
+- Pilihan jawaban dibuat seperti card/button dengan border 2px, background color-bg-card, box-shadow, dan min-height 4.25rem.
+- Choice label diperbesar ke 2.25rem dengan background rgba teal, border 2px, dan flex-shrink 0 untuk konsistensi.
+- Choice text menggunakan font-weight 500 untuk keterbacaan lebih baik.
+- Hover state pada choice button menambahkan translateY(-1px) dan box-shadow untuk feedback tactile.
+- Feedback benar/salah diperjelas dengan: border color, background tint, box-shadow ring, dan choice-label fill.
+- Feedback panel mendapat is-correct/is-incorrect class dengan border color, background tint, dan status indicator dot.
+- Feedback status menggunakan pseudo-element (::before) dengan dot indicator berwarna sesuai hasil.
+- Feedback explanation font-size ditingkatkan ke font-size-base untuk keterbacaan mobile.
+- Result panel mendapat padding consistent dan margin pada heading/summary.
+- Tidak ada perubahan pada logic quiz, HP, timer 45 detik, scoring, urutan soal, atau data soal.
+- Tidak ada perubahan pada Firebase, story, exploration, atau fitur lain.
 - Semua fitur existing tetap berfungsi; game tetap runnable.
 
 ## Batasan STEP Berikutnya
