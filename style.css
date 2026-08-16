@@ -855,9 +855,9 @@ input:focus-visible {
 }
 
 .story-exploration-panel {
-  gap: var(--spacing-sm);
-  padding-top: var(--spacing-md);
-  padding-bottom: var(--spacing-md);
+  gap: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .story-heading,
@@ -1084,47 +1084,68 @@ input:focus-visible {
 }
 
 .story-controls {
-  position: relative;
-  min-height: 3.5rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.75rem;
+  z-index: 30;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: var(--spacing-sm);
-  padding: var(--spacing-xs) 0;
+  padding: 0 0.75rem;
+  pointer-events: none;
 }
 
 .movement-joystick {
   position: relative;
-  width: 3.25rem;
-  height: 3.25rem;
-  flex: 0 0 3.25rem;
+  width: 6.5rem;
+  height: 6.5rem;
+  flex: 0 0 6.5rem;
   border: 2px solid rgba(191, 232, 94, 0.5);
   border-radius: var(--radius-full);
-  background: radial-gradient(circle, rgba(191, 232, 94, 0.1) 0%, rgba(17, 22, 17, 0.8) 100%);
+  background: radial-gradient(
+    circle,
+    rgba(191, 232, 94, 0.1) 0%,
+    rgba(17, 22, 17, 0.8) 100%
+  );
   touch-action: none;
   user-select: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(0, 0, 0, 0.3);
+  pointer-events: auto;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    inset 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .movement-joystick-thumb {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.9rem;
+  height: 1.9rem;
   border: 2px solid var(--color-accent-lime);
   border-radius: var(--radius-full);
-  background: radial-gradient(circle, rgba(191, 232, 94, 0.9) 0%, var(--color-accent-lime) 100%);
+  background: radial-gradient(
+    circle,
+    rgba(191, 232, 94, 0.9) 0%,
+    var(--color-accent-lime) 100%
+  );
   transform: translate(-50%, -50%);
   pointer-events: none;
   box-shadow: 0 2px 6px rgba(191, 232, 94, 0.4);
 }
 
 .story-controls .story-action-button {
-  flex: 1;
-  min-width: auto;
-  height: 3rem;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 6.5rem;
+  height: 2.5rem;
+  min-height: 2.5rem;
+  padding: 0 0.75rem;
+  font-size: var(--font-size-sm);
+  pointer-events: auto;
 }
+
 .leaderboard-screen {
   display: grid;
   place-items: stretch center;
