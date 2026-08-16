@@ -268,6 +268,87 @@ function updateExplorationStatus(view) {
   };
 }
 
+function updateExplorationCamera() {
+  const worldMap = gameElements.storyWorldMap;
+  const world = gameElements.storyWorld;
+
+  if (!worldMap || !world) {
+    return;
+  }
+
+  const viewportWidth = worldMap.clientWidth;
+  const viewportHeight = worldMap.clientHeight;
+
+  const scaleX = viewportWidth / WORLD_MAP_WIDTH;
+  const scaleY = viewportHeight / WORLD_MAP_HEIGHT;
+
+  const playerPixelX = explorationState.playerX * scaleX;
+  const playerPixelY = explorationState.playerY * scaleY;
+
+  const maxOffsetX = Math.max(0, worldMap.clientWidth - viewportWidth);
+  const maxOffsetY = Math.max(0, worldMap.clientHeight - viewportHeight);
+
+  const cameraX = Math.min(
+    maxOffsetX,
+    Math.max(0, playerPixelX - viewportWidth / 2),
+  );
+
+  const cameraY = Math.min(
+    maxOffsetY,
+    Math.max(0, playerPixelY - viewportHeight / 2),
+  );
+
+  world.style.transform = `translate(${-cameraX}px, ${-cameraY}px)`;
+}
+
+function updateObjectiveDirection(view, cameraX, cameraY) {
+  const arrow = gameElements.storyObjectiveArrow;
+
+  if (!arrow) {
+    return;
+  }
+
+  const activeScene = view?.scene;
+
+  if (!activeScene) {
+    return;
+  }
+
+  const interactionPoint = getSceneMapZone(activeScene).interactionPoint;
+
+  const world = gameElements.storyWorld;
+
+  if (!world) {
+    return;
+  }
+
+  const targetX =
+    (interactionPoint.x / WORLD_MAP_WIDTH) * world.clientWidth;
+
+  const targetY =
+    (interactionPoint.y / WORLD_MAP_HEIGHT) * world.clientHeight;
+
+  const playerX =
+    (explorationState.playerX / WORLD_MAP_WIDTH) * world.clientWidth;
+
+  const playerY =
+    (explorationState.playerY / WORLD_MAP_HEIGHT) * world.clientHeight;
+
+  const deltaX = targetX - playerX;
+  const deltaY = targetY - playerY;
+
+  if (Math.hypot(deltaX, deltaY) < 2) {
+    arrow.textContent = "✓";
+    arrow.style.transform = "rotate(0deg)";
+    return;
+  }
+
+  const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+
+  arrow.textContent = "↑";
+  arrow.style.transform = `rotate(${angle + 90}deg)`;
+}
+
 function renderExplorationMap(view) {
   const activeScene = view.scene;
   const zones = STORY_ENGINE.getOrderedScenes();
@@ -299,11 +380,21 @@ function renderExplorationMap(view) {
     gameElements.storyWorldZones.append(zoneElement);
   });
 
-  const interactionPoint = getSceneMapZone(activeScene).interactionPoint;
-  gameElements.storyWorldInteraction.style.left = `${(interactionPoint.x / WORLD_MAP_WIDTH) * 100}%`;
-  gameElements.storyWorldInteraction.style.top = `${(interactionPoint.y / WORLD_MAP_HEIGHT) * 100}%`;
-  gameElements.storyWorldPlayer.style.left = `${(explorationState.playerX / WORLD_MAP_WIDTH) * 100}%`;
-  gameElements.storyWorldPlayer.style.top = `${(explorationState.playerY / WORLD_MAP_HEIGHT) * 100}%`;
+ const interactionPoint = getSceneMapZone(activeScene).interactionPoint;
+
+  gameElements.storyWorldInteraction.style.left =
+    `${(interactionPoint.x / WORLD_MAP_WIDTH) * 100}%`;
+
+  gameElements.storyWorldInteraction.style.top =
+    `${(interactionPoint.y / WORLD_MAP_HEIGHT) * 100}%`;
+
+  gameElements.storyWorldPlayer.style.left =
+    `${(explorationState.playerX / WORLD_MAP_WIDTH) * 100}%`;
+
+  gameElements.storyWorldPlayer.style.top =
+    `${(explorationState.playerY / WORLD_MAP_HEIGHT) * 100}%`;
+
+  updateExplorationCamera(view);
 }
 
 function renderExplorationPanel(view) {
@@ -1051,9 +1142,12 @@ function initializeGame() {
     storyExplorationTarget: document.querySelector("#story-exploration-target"),
     storyExplorationHint: document.querySelector("#story-exploration-hint"),
     storyWorldMap: document.querySelector("#story-world-map"),
+    storyWorld: document.querySelector("#story-world"),
     storyWorldZones: document.querySelector("#story-world-zones"),
     storyWorldInteraction: document.querySelector("#story-world-interaction"),
     storyWorldPlayer: document.querySelector("#story-world-player"),
+    storyObjectiveDirection: document.querySelector("#story-objective-direction"),
+    storyObjectiveArrow: document.querySelector(".story-objective-arrow"),
     movementJoystick: document.querySelector("#movement-joystick"),
     movementJoystickThumb: document.querySelector("#movement-joystick-thumb"),
     storyExplorationButton: document.querySelector("#story-exploration-button"),
