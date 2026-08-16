@@ -268,7 +268,7 @@ function updateExplorationStatus(view) {
   };
 }
 
-function updateExplorationCamera() {
+function updateExplorationCamera(view) {
   const worldMap = gameElements.storyWorldMap;
   const world = gameElements.storyWorld;
 
@@ -279,29 +279,41 @@ function updateExplorationCamera() {
   const viewportWidth = worldMap.clientWidth;
   const viewportHeight = worldMap.clientHeight;
 
-  const scaleX = viewportWidth / WORLD_MAP_WIDTH;
-  const scaleY = viewportHeight / WORLD_MAP_HEIGHT;
+  const worldWidth = world.clientWidth;
+  const worldHeight = world.clientHeight;
 
-  const playerPixelX = explorationState.playerX * scaleX;
-  const playerPixelY = explorationState.playerY * scaleY;
+  const playerPixelX =
+    (explorationState.playerX / WORLD_MAP_WIDTH) * worldWidth;
 
-  const maxOffsetX = Math.max(0, worldMap.clientWidth - viewportWidth);
-  const maxOffsetY = Math.max(0, worldMap.clientHeight - viewportHeight);
+  const playerPixelY =
+    (explorationState.playerY / WORLD_MAP_HEIGHT) * worldHeight;
+
+  const maxCameraX = Math.max(0, worldWidth - viewportWidth);
+  const maxCameraY = Math.max(0, worldHeight - viewportHeight);
+
+  const desiredCameraX =
+    playerPixelX - viewportWidth / 2;
+
+  const desiredCameraY =
+    playerPixelY - viewportHeight / 2;
 
   const cameraX = Math.min(
-    maxOffsetX,
-    Math.max(0, playerPixelX - viewportWidth / 2),
+    maxCameraX,
+    Math.max(0, desiredCameraX),
   );
 
   const cameraY = Math.min(
-    maxOffsetY,
-    Math.max(0, playerPixelY - viewportHeight / 2),
+    maxCameraY,
+    Math.max(0, desiredCameraY),
   );
 
-  world.style.transform = `translate(${-cameraX}px, ${-cameraY}px)`;
+  world.style.transform =
+    `translate(${-cameraX}px, ${-cameraY}px)`;
+
+  updateObjectiveDirection(view);
 }
 
-function updateObjectiveDirection(view, cameraX, cameraY) {
+function updateObjectiveDirection(view) {
   const arrow = gameElements.storyObjectiveArrow;
 
   if (!arrow) {
@@ -314,13 +326,14 @@ function updateObjectiveDirection(view, cameraX, cameraY) {
     return;
   }
 
-  const interactionPoint = getSceneMapZone(activeScene).interactionPoint;
-
   const world = gameElements.storyWorld;
 
   if (!world) {
     return;
   }
+
+  const interactionPoint =
+    getSceneMapZone(activeScene).interactionPoint;
 
   const targetX =
     (interactionPoint.x / WORLD_MAP_WIDTH) * world.clientWidth;
@@ -343,10 +356,12 @@ function updateObjectiveDirection(view, cameraX, cameraY) {
     return;
   }
 
-  const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+  const angle =
+    Math.atan2(deltaY, deltaX) * (180 / Math.PI);
 
   arrow.textContent = "↑";
-  arrow.style.transform = `rotate(${angle + 90}deg)`;
+  arrow.style.transform =
+    `rotate(${angle + 90}deg)`;
 }
 
 function renderExplorationMap(view) {
