@@ -144,19 +144,17 @@ function renderDialoguePanel(view) {
   hideStoryPanels();
   gameElements.storyDialoguePanel.hidden = false;
 
+  gameElements.storyDialoguePanel.dataset.sceneId = view.scene?.id || "";
+
   const speaker = view.speaker;
-  const portrait = gameElements.storyDialoguePortrait;
-  const sceneId = view.scene?.id || "";
 
+  gameElements.storyDialoguePortrait.src = "assets/images/npc-aruna.png";
+  gameElements.storyDialoguePortrait.alt = speaker?.name || "Dr. Aruna";
 
-if (portrait) {
-  portrait.src = "assets/images/npc-aruna.png";
-  portrait.alt = speaker?.name || "Dr. Aruna";
-}
   gameElements.storyDialogueSpeakerRole.textContent = speaker?.role || "NPC";
   gameElements.storyDialogueSpeakerName.textContent = speaker?.name || "UNKNOWN";
   gameElements.storyDialogueText.textContent = view.dialogueLine?.text || "";
-  gameElements.storyDialoguePanel.dataset.sceneId = sceneId;
+
   updateStoryScore();
 }
 
@@ -1182,6 +1180,7 @@ function initializeGame() {
     storyInteractionCopy: document.querySelector("#story-interaction-copy"),
     storyInteractionButton: document.querySelector("#story-interaction-button"),
     storyDialoguePanel: document.querySelector("#story-dialogue-panel"),
+    storyDialoguePortrait: document.querySelector("#story-dialogue-portrait"),
     storyDialogueSpeakerRole: document.querySelector("#story-dialogue-speaker-role"),
     storyDialogueSpeakerName: document.querySelector("#story-dialogue-speaker-name"),
     storyDialogueText: document.querySelector("#story-dialogue-text"),
