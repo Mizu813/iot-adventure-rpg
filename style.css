@@ -1237,3 +1237,73 @@ input:focus-visible {
 .leaderboard-empty p {
   margin: var(--spacing-sm) 0;
 }
+
+.story-dialogue-panel {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.story-dialogue-panel[data-scene-id="central-plaza"] {
+  background-image: url("./assets/images/map.png");
+}
+
+.story-dialogue-panel[data-scene-id="smart-home"] {
+  background-image: url("./assets/images/home.jpeg");
+}
+
+.story-dialogue-panel[data-scene-id="iot-laboratory"] {
+  background-image: url("./assets/images/lab.jpeg");
+}
+
+.story-dialogue-panel[data-scene-id="smart-farm"] {
+  background-image: url("./assets/images/farm.jpeg");
+}
+
+.story-dialogue-panel[data-scene-id="smart-factory"] {
+  background-image: url("./assets/images/factory.jpeg");
+}
+
+.story-dialogue-panel[data-scene-id="network-hub"] {
+  background-image: url("./assets/images/network.jpeg");
+}
+
+.story-dialogue-panel[data-scene-id="nexus-core"] {
+  background-image: url("./assets/images/map.png");
+}
+
+.story-dialogue-portrait-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 9rem;
+}
+
+.story-dialogue-portrait {
+  display: block;
+  width: min(12rem, 48vw);
+  height: 12rem;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.story-dialogue-panel {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.story-dialogue-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 10, 8, 0.62);
+  z-index: -1;
+}
+
+.story-dialogue-text {
+  font-size: clamp(1.05rem, 4.5vw, 1.35rem);
+  line-height: 1.7;
+  font-weight: 600;
+}

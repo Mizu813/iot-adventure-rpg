@@ -4,7 +4,7 @@
 const dialogues = Object.freeze({
   "prologue-central-plaza": Object.freeze([
     Object.freeze({ speakerId: "aruna", text: "SELAMAT DATANG DI NEXUS CITY, TEKNISI. JARINGAN IoT KOTA SEDANG MENGALAMI GANGGUAN BERANTAI." }),
-    Object.freeze({ speakerId: "tiko", text: "LIMA ZONA MEMERLUKAN BANTUAN. KITA MULAI DARI SMART HOME DISTRICT." }),
+    Object.freeze({ speakerId: "aruna", text: "LIMA ZONA MEMERLUKAN BANTUAN. KITA MULAI DARI SMART HOME DISTRICT." }),
   ]),
   "smart-home-arrival": Object.freeze([
     Object.freeze({ speakerId: "bima", text: "LAMPU DAN KIPAS RUMAH CERDAS TIDAK MERESPONS KONDISI RUANGAN. PERIKSA SENSOR DAN AKTUATORNYA." }),

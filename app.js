@@ -145,9 +145,18 @@ function renderDialoguePanel(view) {
   gameElements.storyDialoguePanel.hidden = false;
 
   const speaker = view.speaker;
+  const portrait = gameElements.storyDialoguePortrait;
+  const sceneId = view.scene?.id || "";
+
+
+if (portrait) {
+  portrait.src = "assets/images/npc-aruna.png";
+  portrait.alt = speaker?.name || "Dr. Aruna";
+}
   gameElements.storyDialogueSpeakerRole.textContent = speaker?.role || "NPC";
   gameElements.storyDialogueSpeakerName.textContent = speaker?.name || "UNKNOWN";
   gameElements.storyDialogueText.textContent = view.dialogueLine?.text || "";
+  gameElements.storyDialoguePanel.dataset.sceneId = sceneId;
   updateStoryScore();
 }
 
